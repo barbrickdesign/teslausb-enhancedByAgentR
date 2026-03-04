@@ -1,4 +1,4 @@
-OPTIONAL: You can choose to integrate with [Pushover](https://pushover.net), [Gotify](https://gotify.net/), [IFTTT](https://ifttt.com), and/or [AWS SNS](https://aws.amazon.com/sns/) to get a push/email notification to your phone when the copy process is done. Depending on your wireless network speed/connection, copying files may take some time, so a push notification can help confirm that the process finished. If no files were copied (i.e. all manually saved dashcam files were already copied, no notification will be sent.).
+OPTIONAL: You can choose to integrate with [Pushover](https://pushover.net), [Gotify](https://gotify.net/), [IFTTT](https://ifttt.com), [AWS SNS](https://aws.amazon.com/sns/), and/or [Telegram](https://telegram.org) to get a push/email notification to your phone when the copy process is done. Depending on your wireless network speed/connection, copying files may take some time, so a push notification can help confirm that the process finished. If no files were copied (i.e. all manually saved dashcam files were already copied, no notification will be sent.).
 
 # Pushover
 The Pushover service is free for up to 7,500 messages per month, but the [iOS](https://pushover.net/clients/ios)/[Android](https://pushover.net/clients/android) apps do have a one time cost, after a free trial period. *This also assumes your Pi is connected to a network with internet access.*
@@ -72,3 +72,16 @@ You can also choose to send notification through AWS SNS. You can create a free 
     export aws_sns_topic_arn=put_your_sns_topicarn_here
     ```
 
+# Telegram
+Telegram is a free messaging app available for [iOS](https://apps.apple.com/app/telegram-messenger/id686449807) and [Android](https://play.google.com/store/apps/details?id=org.telegram.messenger). Notifications are sent via a Telegram bot, which is free to create and use.
+
+1. Open Telegram and start a chat with [@BotFather](https://t.me/botfather).
+1. Send `/newbot` and follow the prompts to create a new bot. Note down the **bot token** (looks like `123456789:ABCdef...`).
+1. Start a chat with your new bot (search for its username and send any message to it).
+1. Open a chat with [@userinfobot](https://t.me/userinfobot) and send any message. It will reply with your **Chat ID** (a numeric value).
+1. Run these commands, substituting your bot token and chat ID in the appropriate places.
+    ```
+    export telegram_enabled=true
+    export telegram_bot_token=put_your_bot_token_here
+    export telegram_chat_id=put_your_chat_id_here
+    ```

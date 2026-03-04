@@ -71,6 +71,10 @@ export HEADLESS_SETUP=true
 # the duration of that delay
 # export archivedelay=20
 
+# Uncomment to set the disk usage percentage at which a low-space warning
+# notification is sent. Defaults to 90%.
+# export DISK_SPACE_THRESHOLD_PERCENT=90
+
 # Uncomment if you want to override the default hostname of "teslausb"
 # export TESLAUSB_HOSTNAME=teslausb-Model3
 
@@ -96,6 +100,13 @@ export HEADLESS_SETUP=true
 # export aws_access_key_id=put_your_accesskeyid_here
 # export aws_secret_key=put_your_secretkey_here
 # export aws_sns_topic_arn=put_your_sns_topicarn_here
+
+# Uncomment if setting up Telegram push notifications
+# Create a bot via @BotFather on Telegram to get a bot token.
+# Get your chat_id by messaging @userinfobot on Telegram.
+# export telegram_enabled=true
+# export telegram_bot_token=put_your_bot_token_here
+# export telegram_chat_id=put_your_chat_id_here
 
 # TeslaUSB can optionally use the Tesla API to keep your car awake, so it can
 # power the Pi long enough for the archiving process to complete. To enable
