@@ -51,7 +51,19 @@ function send_sns () {
   python3 /root/bin/send_sns.py -t $sns_topic_arn -s "$TITLE" -m "$MESSAGE"
 }
 
+function send_telegram () {
+  log "Sending Telegram message for moved files."
+
+  source /root/.teslaCamTelegramSettings
+
+  curl -s -X POST \
+  "https://api.telegram.org/bot${telegram_bot_token}/sendMessage" \
+  --data-urlencode "chat_id=${telegram_chat_id}" \
+  --data-urlencode "text=${TITLE} ${MESSAGE}"
+}
+
 [ -r "/root/.teslaCamPushoverCredentials" ] && send_pushover
 [ -r "/root/.teslaCamGotifySettings" ] && send_gotify
 [ -r "/root/.teslaCamIftttSettings" ] && send_ifttt
 [ -r "/root/.teslaCamSNSTopicARN" ] && send_sns
+[ -r "/root/.teslaCamTelegramSettings" ] && send_telegram

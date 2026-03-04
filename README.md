@@ -18,7 +18,8 @@ This fork contains the following improvements compared to the upstream [cimryan/
 1. Supports using the Tesla API to keep the car awake during archiving
 1. Status indicator while running
 1. Easier and more flexible way to specify sizes of camera and music disks
-1. Support for Gotify, IFTTT and AWS SNS in addition to Pushover for notifications
+1. Support for Gotify, IFTTT, AWS SNS, and **Telegram** in addition to Pushover for notifications
+1. Low disk space warning notification when SD card usage exceeds a configurable threshold
 
 
 ## Installing
@@ -138,7 +139,7 @@ Note: since the car records about 5.5 gigabyte per hour, and throws away non-sav
 As an example, if your normal use case is driving to work in the morning, enabling Sentry while parked, and going back home in the evening, with the car reporting up to 10 Sentry events, then 16 GB is a good size to use. This allows the car to keep about 2 hours worth of Sentry mode recordings, in addition to the normal recordings. If you anticipate needing more space for saved recordings, for example if your car generally reports much more Sentry events, you manually save recordings a lot, or if you're going to be away from wifi for multiple days, then increase size as needed.
 In order for teslausb to preserve recordings older than an hour, there needs to be enough free space on the sd card, at least 'camsize' worth, preferably much more.
 
-### Optional: Configure push notification via Pushover, Gotify, IFTTT, or AWS SNS
+### Optional: Configure push notification via Pushover, Gotify, IFTTT, AWS SNS, or Telegram
 
 If you'd like to receive a notification when your Pi finishes archiving clips follow these [Instructions](doc/ConfigureNotificationsForArchive.md).
 

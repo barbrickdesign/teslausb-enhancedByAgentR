@@ -239,7 +239,7 @@ function check_ifttt_configuration () {
 function check_sns_configuration () {
     if [ ! -z "${sns_enabled+x}" ]
     then
-        if [ ! -n "${aws_access_key_id+x}" ] || [ ! -n "${aws_secret_key+x}" || [ ! -n "${aws_sns_topic_arn+x}"  ]
+        if [ ! -n "${aws_access_key_id+x}" ] || [ ! -n "${aws_secret_key+x}" ] || [ ! -n "${aws_sns_topic_arn+x}" ]
         then
             echo "STOP: You're trying to setup AWS SNS but didn't provide your User and/or App key and/or topic ARN."
             echo "Define the variables like this:"
@@ -247,7 +247,7 @@ function check_sns_configuration () {
             echo "export aws_secret_key=put_your_secretkey_here"
             echo "export aws_sns_topic_arn=put_your_sns_topicarn_here"
             exit 1
-        elif [ "${aws_access_key_id}" = "put_your_accesskeyid_here" ] || [  "${aws_secret_key}" = "put_your_secretkey_here"  || [  "${aws_sns_topic_arn}" = "put_your_sns_topicarn_here" ]
+        elif [ "${aws_access_key_id}" = "put_your_accesskeyid_here" ] || [ "${aws_secret_key}" = "put_your_secretkey_here" ] || [ "${aws_sns_topic_arn}" = "put_your_sns_topicarn_here" ]
         then
             echo "STOP: You're trying to setup SNS, but didn't replace the default values."
             exit 1
@@ -288,7 +288,7 @@ function configure_ifttt () {
         echo "export ifttt_event_name=$ifttt_event_name" >> /root/.teslaCamIftttSettings
         echo "export ifttt_key=$ifttt_key" >> /root/.teslaCamIftttSettings
     else
-        log_progress "Gotify not configured."
+        log_progress "IFTTT not configured."
     fi
 }
 
@@ -339,6 +339,42 @@ function check_and_configure_sns () {
     configure_sns
 }
 
+function check_telegram_configuration () {
+    if [ ! -z "${telegram_enabled+x}" ]
+    then
+        if [ ! -n "${telegram_bot_token+x}" ] || [ ! -n "${telegram_chat_id+x}" ]
+        then
+            echo "STOP: You're trying to setup Telegram but didn't provide your Bot Token and/or Chat ID."
+            echo "Define the variables like this:"
+            echo "export telegram_bot_token=put_your_bot_token_here"
+            echo "export telegram_chat_id=put_your_chat_id_here"
+            exit 1
+        elif [ "${telegram_bot_token}" = "put_your_bot_token_here" ] || [ "${telegram_chat_id}" = "put_your_chat_id_here" ]
+        then
+            echo "STOP: You're trying to setup Telegram, but didn't replace the default Bot Token and/or Chat ID values."
+            exit 1
+        fi
+    fi
+}
+
+function configure_telegram () {
+    if [ ! -z "${telegram_enabled+x}" ]
+    then
+        log_progress "Enabling Telegram"
+        echo "export telegram_enabled=true" > /root/.teslaCamTelegramSettings
+        echo "export telegram_bot_token=$telegram_bot_token" >> /root/.teslaCamTelegramSettings
+        echo "export telegram_chat_id=$telegram_chat_id" >> /root/.teslaCamTelegramSettings
+    else
+        log_progress "Telegram not configured."
+    fi
+}
+
+function check_and_configure_telegram () {
+    check_telegram_configuration
+
+    configure_telegram
+}
+
 function install_push_message_scripts() {
     local install_path="$1"
     get_script $install_path send-push-message run
@@ -359,6 +395,7 @@ check_and_configure_pushover
 check_and_configure_gotify
 check_and_configure_ifttt
 check_and_configure_sns
+check_and_configure_telegram
 install_push_message_scripts /root/bin
 
 check_archive_configs
